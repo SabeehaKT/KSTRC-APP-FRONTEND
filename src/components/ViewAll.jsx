@@ -1,7 +1,17 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import NavBar from './NavBar'
+import axios from 'axios'
 
 const ViewAll = () => {
+    const [data,setData]= useState([])
+    const fetchData =()=>{
+        axios.post("http://localhost:8080/view").then(
+            (response)=>{
+                setData(response.data)
+            }
+        ).catch().finally()
+    }
+    useEffect(()=>{fetchData()},[])
     return (
         <div>
             <NavBar/>
@@ -20,18 +30,16 @@ const ViewAll = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Jacob</td>
-                                            <td>Thornton</td>
-                                            <td>@fat</td>
-                                        </tr>
+                                        {data.map(
+                                            (value,index)=>{
+                                                return <tr>
+                                                <th scope="row">{value.busno}</th>
+                                                <td>{value.bname}</td>
+                                                <td>{value.route}</td>
+                                                <td>{value.dname}</td>
+                                            </tr>
+                                            }
+                                        )}
                                     </tbody>
                                 </table>
                             </div>
