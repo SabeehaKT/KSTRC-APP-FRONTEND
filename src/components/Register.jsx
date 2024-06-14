@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Register = () => {
     const [data,setData] = useState(
@@ -22,13 +22,17 @@ const Register = () => {
             (response)=>{
                 console.log(response.data)
                 if (response.data.status=="success") {
-                    alert("Successfully Registered")
+                    alert("Successfully registered")
+                    sessionStorage.setItem("token",response.data.token)
+                    sessionStorage.setItem("userid",response.data.userid)
+                    navigate("/add")
                 } else {
                     alert("error!")
                 }
             }
         ).catch().finally()
     }
+    let navigate = useNavigate()
   return (
     <div>
         <div className="container">

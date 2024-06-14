@@ -22,7 +22,7 @@ const Login = () => {
                     sessionStorage.setItem("userid",response.data.userid)
                     navigate("/add")
                 }else{
-                    alert("error!")
+                    alert("Incorrect email or password")
                 }
             }
         ).catch().finally()
