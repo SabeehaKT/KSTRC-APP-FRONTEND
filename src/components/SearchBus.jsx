@@ -10,6 +10,19 @@ const SearchBus = () => {
     )
 
     const [result, setResult] = useState([])
+
+    const deleteBus = (id)=>{
+        let input =  { "_id": id}
+        axios.post("http://localhost:8080/delete",input).then(
+        (response)=>{
+            console.log(response.data)
+            if (response.data.status == "success") {
+                alert("Successfully Deleted")
+            } else {
+                alert("error in deletion")
+            }
+        }).catch().finally()
+    }
     const inputHandler = (event) => {
         setData({ ...data, [event.target.name]: event.target.value })
     }
@@ -58,6 +71,9 @@ const SearchBus = () => {
                                                     <td>{value.bname}</td>
                                                     <td>{value.route}</td>
                                                     <td>{value.dname}</td>
+                                                    <td>
+                                                        <button className="btn btn-danger" onClick={()=>{deleteBus(value._id)}}>Delete</button>
+                                                    </td>
                                                 </tr>
                                                 }
                                             )}
